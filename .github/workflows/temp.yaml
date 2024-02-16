@@ -1,9 +1,12 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name'
+        required: true
+        default: 'main'  # Default branch name
 
 jobs:
   build:
@@ -28,11 +31,11 @@ jobs:
       
     - name: Download opentelemetry-javaagent.jar
       run: |
-        mkdir -p target
-        curl -L -o target/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.32.0/opentelemetry-javaagent.jar
+        mkdir -p example/target
+        curl -L -o example/target/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.32.0/opentelemetry-javaagent.jar
 
     - name: Build Docker image
-      run: docker build . -t example:temp
+      run: docker build example -t example:temp
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
