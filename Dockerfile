@@ -6,7 +6,7 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Build Spring Boot app
-FROM openjdk:17-oracle AS spring-build
+FROM openjdk:17-jdk-slim AS spring-build
 WORKDIR /app
 COPY ./example/ /app
 RUN mvn package
