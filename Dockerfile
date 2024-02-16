@@ -6,13 +6,13 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Build Spring Boot app
-FROM eclipse-temurin:17 AS spring-build
+FROM maven:3.8.6-openjdk-11 AS spring-build
 WORKDIR /app
 COPY ./example/ /app
 RUN mvn package
 
 # Stage 3: Combine React and Spring Boot apps
-FROM eclipse-temurin:17
+FROM openjdk:11-jre-slim
 WORKDIR /app
 COPY --from=spring-build /app/target/*.jar /app/app.jar
 COPY --from=react-build /app/build /app/src
