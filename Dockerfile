@@ -1,7 +1,8 @@
 
 # Stage 2: Build Spring Boot app
 FROM maven:3.8.6-openjdk-11 AS spring-build
-COPY . /usr/src/app/example
+COPY . /usr/src/app/example/
+WORKDIR /usr/src/app/example/
 ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.32.0/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 RUN mvn -f pom.xml clean package
 
