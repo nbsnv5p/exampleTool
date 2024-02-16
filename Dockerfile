@@ -6,7 +6,7 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Build Spring Boot app
-FROM adoptopenjdk/openjdk17:alpine AS spring-build
+FROM adoptopenjdk/openjdk17:jdk-17.0.2_8-alpine AS spring-build
 WORKDIR /app
 COPY ./example/ /app
 RUN mvn package
