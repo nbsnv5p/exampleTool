@@ -9,6 +9,7 @@ RUN mvn -f pom.xml clean package
 # Stage 3: Combine React and Spring Boot apps
 FROM openjdk:11-jre-slim
 RUN mkdir -p /opt/app
+RUN ls -ltr
 COPY --from=spring-build /usr/src/app/example/target/example-0.0.1-SNAPSHOT.jar /opt/app/app.jar
 COPY --from=spring-build --chmod=777 /usr/src/app/example/opentelemetry-javaagent.jar /opt/app/opentelemetry-javaagent.jar
 EXPOSE 8080
