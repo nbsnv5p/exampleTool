@@ -6,7 +6,7 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Build Spring Boot app
-FROM maven:3.8.3-jdk-11 AS spring-build
+FROM maven:3.9.6-jdk-17 AS spring-build
 WORKDIR /app
 COPY ./example/ /app
 RUN mvn package
