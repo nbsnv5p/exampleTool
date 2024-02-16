@@ -9,7 +9,7 @@ RUN npm run build
 FROM maven:3.8.3-jdk-11 AS spring-build
 WORKDIR /app
 COPY ./example/ /app
-RUN mvn package -DskipTests
+RUN mvn package
 
 # Stage 3: Combine React and Spring Boot apps
 FROM openjdk:11-jre-slim
