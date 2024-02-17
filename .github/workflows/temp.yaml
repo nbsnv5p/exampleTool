@@ -25,14 +25,18 @@ jobs:
     - name: Set up Maven 3.9.6
       run: |
         sudo apt-get install -y maven
+        cd example  # Navigate to the "example" directory
+        mvn -N io.takari:maven:wrapper -Dmaven=3.9.6  # Use Maven wrapper to specify Maven version
 
     - name: Build with Maven
-      run: mvn clean package
+      run: |
+        cd example  # Navigate to the "example" directory
+        ./mvnw clean package  # Use Maven wrapper to run Maven commands
       
     - name: Download opentelemetry-javaagent.jar
       run: |
-        mkdir -p example/target
-        curl -L -o example/target/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.32.0/opentelemetry-javaagent.jar
+        mkdir -p example/target/lib
+        curl -L -o example/target/lib/opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.32.0/opentelemetry-javaagent.jar
 
     - name: Build Docker image
       run: docker build example -t example:temp
